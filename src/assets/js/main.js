@@ -13,6 +13,8 @@ const btnAfterNextPage = pagerHtml.querySelector('.btn-afternext-page');
 const btnOnePageBefore = pagerHtml.querySelector('.btn-one-page-before');
 const btnTwoPageBefore = pagerHtml.querySelector('.btn-two-page-before');
 let index = 1;
+let offset = 0;
+let limit = 20;
 
 function fetchURL(url){
   fetch(url).then(response => response.json()).then(data => {
@@ -27,8 +29,6 @@ function fetchURL(url){
     btnOnePageBefore.textContent = index - 1;
     btnTwoPageBefore.textContent = index - 2;
 
-    let offset = 0;
-
     btnPrevious.setAttribute('data-url', data.previous);
     btnNext.setAttribute('data-url', data.next);
     btnLastPage.setAttribute('data-url', 'https://pokeapi.co/api/v2/pokemon?offset=1300&limit=20');
@@ -36,8 +36,8 @@ function fetchURL(url){
     btnNextPage.setAttribute('data-url', data.next);
     btnOnePageBefore.setAttribute('data-url', data.previous);
 
-    btnAfterNextPage.setAttribute('data-url', `${url}?offset=${offset+40}&limit=20`);
-    btnTwoPageBefore.setAttribute('data-url', `${url}?offset=${offset-40}&limit=20`);
+    btnAfterNextPage.setAttribute('data-url', `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`);
+    btnTwoPageBefore.setAttribute('data-url', `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`);
 
     console.log(url);
 
@@ -50,7 +50,7 @@ function fetchURL(url){
     });
   });
 };
-fetchURL('https://pokeapi.co/api/v2/pokemon');
+fetchURL(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
 
 function openModal(url){
   fetch(url).then(response => response.json()).then(data => {
@@ -61,7 +61,6 @@ function openModal(url){
 
     const height = document.querySelector('.height');
     height.textContent = data.height;
-
     const weight = document.querySelector('.weight');
     weight.textContent = data.weight;
 
@@ -100,7 +99,6 @@ closeBtn.addEventListener('click', () => {
   btnOnePageBefore, 
   btnTwoPageBefore  
 ].forEach(btn => btn.addEventListener('click', () => {
-  
   const url = btn.getAttribute('data-url');
   const btnClass = btn.getAttribute('class');
   
@@ -109,35 +107,29 @@ closeBtn.addEventListener('click', () => {
 
     switch(true){
       case btnClass.includes('btn-next'):
-        index += 1;
+      case btnClass.includes('btn-next-page'):
+        (index += 1, offset += 20);
         break;
   
       case btnClass.includes('btn-previous'):
-        index -= 1;
+      case btnClass.includes('btn-one-page-before'):
+        (index -= 1, offset -= 20);
         break;
   
       case btnClass.includes('btn-last'):
-        index = 66;
+        (index = 66, offset = 1300);
         break;
   
       case btnClass.includes('btn-first'):
-        index = 1;
-        break;
-  
-      case btnClass.includes('btn-next-page'):
-        index += 1;
+        (index = 1, offset = 0);
         break;
       
       case btnClass.includes('btn-afternext-page'):
-        index += 2;
-        break;
-  
-      case btnClass.includes('btn-one-page-before'):
-        index -= 1;
+        (index += 2, offset += 40);
         break;
       
       case btnClass.includes('btn-two-page-before'):
-        index -= 2;
+        (index -= 2, offset -= 40);
         break;
   
       default:
