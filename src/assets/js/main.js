@@ -27,10 +27,19 @@ function fetchURL(url){
     btnOnePageBefore.textContent = index - 1;
     btnTwoPageBefore.textContent = index - 2;
 
+    let offset = 0;
+
     btnPrevious.setAttribute('data-url', data.previous);
     btnNext.setAttribute('data-url', data.next);
-    btnLastPage.setAttribute('data-url', data.next);
-    btnFirstPage.setAttribute('data-url', data.previous);
+    btnLastPage.setAttribute('data-url', 'https://pokeapi.co/api/v2/pokemon?offset=1300&limit=20');
+    btnFirstPage.setAttribute('data-url', 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20');
+    btnNextPage.setAttribute('data-url', data.next);
+    btnOnePageBefore.setAttribute('data-url', data.previous);
+
+    btnAfterNextPage.setAttribute('data-url', `${url}?offset=${offset+40}&limit=20`);
+    btnTwoPageBefore.setAttribute('data-url', `${url}?offset=${offset-40}&limit=20`);
+
+    console.log(url);
 
     const pokemons = pokemonsList.querySelectorAll('li>button');
     pokemons.forEach(pokemon => {
@@ -96,7 +105,7 @@ closeBtn.addEventListener('click', () => {
   const btnClass = btn.getAttribute('class');
   
   if(url !== 'null'){
-    fetchURL(url, btn.textContent);
+    fetchURL(url);
 
     switch(true){
       case btnClass.includes('btn-next'):
@@ -108,11 +117,11 @@ closeBtn.addEventListener('click', () => {
         break;
   
       case btnClass.includes('btn-last'):
-        console.log('last');
+        index = 66;
         break;
   
       case btnClass.includes('btn-first'):
-        console.log('first');
+        index = 1;
         break;
   
       case btnClass.includes('btn-next-page'):
