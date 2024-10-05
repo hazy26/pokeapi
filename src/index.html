@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./assets/img/pokeball.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poké API</title>
+    <script type="module" src="./assets/js/main.js" defer></script>
+  </head>
+  <body class="flex flex-col gap-12 p-8 bg-blue-200">
+      <header>
+        <h1 class="text-4xl font-bold text-center">Poké API</h1>
+      </header>
+      <main>
+        <section class="flex flex-col gap-6">
+          <h2 class="text-xl font-bold text-center">Les Pokémons</h2>
+          <ul class="pokemons-list flex flex-col gap-2 self-center text-center">
+          </ul>
+          <div class="pager flex flex-col gap-4 self-center">
+            <div class="buttons flex gap-2 self-center">
+              <button class="btn-first bg-black text-white px-3 py-1 rounded opacity-50">First</button>
+              <button class="btn-previous bg-black text-white px-3 py-1 rounded opacity-50">Previous</button>
+              <button class="hidden btn-two-page-before bg-black text-white px-3 py-1 rounded"></button>
+              <button class="hidden btn-one-page-before bg-black text-white px-3 py-1 rounded"></button>
+              <button class="btn-current-page bg-black text-white px-3 py-1 rounded opacity-50"></button>
+              <button class="btn-next-page bg-black text-white px-3 py-1 rounded"></button>
+              <button class="btn-afternext-page bg-black text-white px-3 py-1 rounded"></button>
+              <button class="btn-next bg-black text-white px-3 py-1 rounded">Next</button>
+              <button class="btn-last bg-black text-white px-3 py-1 rounded">Last</button>
+            </div>
+          </div>
+        </section>
+        <div class="hidden modal bg-indigo-300 h-dvh w-dvw absolute top-0 left-0 flex flex-col items-center justify-center">
+          <div class="detail-list bg-blue-200 border-white border-4 w-2/4 h-3/4 rounded-lg flex flex-col gap-2 p-8 relative">
+            <p class="close-btn text-2xl absolute top-5 right-5 cursor-pointer">X</p>
+            <h3 class="name text-lg font-bold capitalize tracking-wide text-center pb-4"></h3>
+            <figure class="self-center">
+              <img class="sprites scale-110" src="" alt="">
+            </figure>
+            <p class="font-medium pb-4">Grandeur: <span class="height font-normal"></span></p>
+            <p class="font-medium pb-4">Poids: <span class="weight font-normal"></span></p>
+            <p class="font-medium">Habiletés:</p>
+            <ul class="abilities pb-4">
+            </ul>
+            <p class="font-medium">Types:</p>
+            <ul class="types pb-4">
+            </ul>
+            <h3 class="font-medium">Écouter son cri:</h3>
+            <figure>
+              <audio controls src="" class="cries"></audio>
+            </figure>
+          </div>
+        </div>
+      </main>
+  </body>
+</html>
